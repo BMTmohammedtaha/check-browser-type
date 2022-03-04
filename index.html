@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Browser Type & Version</title>
+</head>
+<body>
+    <script>
+        let browser = "";
+        let browserVersion = 0;
+        
+        if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = "Opera";
+        } else if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+            browser = "MSIE";
+        } else if (/Navigator[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = "Netscape";
+        } else if (/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)  && !!window.chrome) {
+            browser = "Chrome";
+        } else if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = "Safari";
+        /Version[\/\s](\d+\.\d+)/.test(navigator.userAgent);
+            browserVersion = new Number(RegExp.$1);
+        } else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+            browser = "Firefox";
+        }if(browserVersion === 0){
+            browserVersion = parseFloat(new Number(RegExp.$1));
+        }
+        const getDeviceType = () => {
+            const ua = navigator.userAgent;
+            if (
+                /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)
+            ) {
+                return "tablet";
+            }
+            if (
+                /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)
+            ) {
+                return "mobile";
+            }
+            return "desktop";
+        }
+        
+        document.write(`<h1> Browser: ${browser} - Version: ${browserVersion} - Type: ${getDeviceType()}</h1>`)
+    </script>
+</body>
+</html>
